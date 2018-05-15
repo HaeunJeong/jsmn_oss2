@@ -19,6 +19,26 @@ static int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
 	}
 	return -1;
 }
+char* result;
+readJSONFile(){
+
+    char buffer[1000];
+    int length = 1;
+
+    FILE *fp = fopen("data.json", "rt");
+
+    fgets(buffer,1000,fp);
+    result = (int *)malloc(sizeof(buffer)*sizeof(int*));
+    strcat(result,buffer);
+
+    while(fgets(buffer,1000,fp)!=NULL){//값이 있으면 돌아가도록
+        length++;
+
+        result = (int *)realloc(result,sizeof(buffer)*2);
+        strcat(result,buffer);
+    }
+
+}
 
 int main() {
 	int i;
@@ -72,5 +92,11 @@ int main() {
 					JSON_STRING + t[i].start);
 		}
 	}
+        readJSONFile(); 
+        
+	printf("%s", result);
+
+
 	return EXIT_SUCCESS;
 }
+
